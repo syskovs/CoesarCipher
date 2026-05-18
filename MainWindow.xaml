@@ -5,8 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoesarCipher"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Шифр Цезаря" Height="640" Width="900" MinHeight="480" MinWidth="700">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Готово." />
+            </StatusBarItem>
+        </StatusBar>
 
-    </Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Верхняя панель: ключ, режим, авто, обработать -->
+            <Border Grid.Row="0" Padding="8" Margin="0,0,0,8"
+                    BorderBrush="#DDD" BorderThickness="1" CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Ключ:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <TextBox x:Name="KeyTextBox" Width="70" Text="3"
+                             VerticalContentAlignment="Center"
+                             PreviewTextInput="KeyTextBox_PreviewTextInput"
+                             TextChanged="KeyTextBox_TextChanged"/>
+
+                    <Separator Margin="14,0" Width="1" Background="#DDD"/>
+
+                    <RadioButton x:Name="EncryptRadio" Content="Шифровать"
+                                 VerticalAlignment="Center" IsChecked="True"
+                                 GroupName="Mode" Checked="ModeRadio_Checked"/>
+                    <RadioButton x:Name="DecryptRadio" Content="Дешифровать"
+                                 VerticalAlignment="Center" Margin="12,0,0,0"
+                                 GroupName="Mode" Checked="ModeRadio_Checked"/>
+
+                    <Separator Margin="14,0" Width="1" Background="#DDD"/>
+
+                    <CheckBox x:Name="AutoCheckBox" Content="Автообработка"
+                              VerticalAlignment="Center" IsChecked="True"/>
+                    <Button x:Name="ProcessButton" Content="Обработать"
+                            Margin="16,0,0,0" Padding="14,4"
+                            Click="ProcessButton_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Поле ввода -->
+            <GroupBox Grid.Row="1" Header="Исходный текст" Padding="2">
+                <TextBox x:Name="InputTextBox" AcceptsReturn="True" AcceptsTab="True"
+                         TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         FontFamily="Consolas" FontSize="13"
+                         TextChanged="InputTextBox_TextChanged"/>
+            </GroupBox>
+
+            <!-- Средняя панель -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8">
+                <Button Content="Очистить" Click="ClearButton_Click" Padding="10,4"/>
+                <Button x:Name="CopyButton" Content="Копировать результат"
+                        Click="CopyButton_Click" Margin="6,0,0,0" Padding="10,4"/>
+            </StackPanel>
+
+            <!-- Поле результата -->
+            <GroupBox Grid.Row="3" Header="Результат" Padding="2">
+                <TextBox x:Name="OutputTextBox" AcceptsReturn="True" IsReadOnly="True"
+                         TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         FontFamily="Consolas" FontSize="13"
+                         Background="#FAFAFA"/>
+            </GroupBox>
+
+            <!-- Файловые операции -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,8,0,0">
+                <Button Content="Загрузить из файла..." Click="LoadFileButton_Click" Padding="10,4"/>
+                <Button Content="Сохранить результат..." Click="SaveFileButton_Click"
+                        Margin="6,0,0,0" Padding="10,4"/>
+                <Button Content="Пакетная обработка папки..." Click="BatchButton_Click"
+                        Margin="6,0,0,0" Padding="10,4"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>
