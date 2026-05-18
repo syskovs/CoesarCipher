@@ -1,2 +1,2 @@
 # CoesarCipher
-Шифр Цезаря — GUI/CLI утилита для Windows (C# + WPF, .NET 10)
+Caesar Cipher — GUI/CLI utility for Windows (C# + WPF, .NET 10)
